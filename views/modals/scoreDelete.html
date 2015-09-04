@@ -1,0 +1,11 @@
+<div ng-controller="ScoreModalsCtrl">
+    <form class="form" name="deleteScoreForm" ng-submit="deleteScore(score)">
+        <p>Weet u zeker dat u de score <strong>{{score.Score}}</strong> voor deelnemer <strong>{{score.User.FullName}}</strong> op onderdeel <strong>{{score.Section.Name}}</strong> wilt verwijderen?</p>
+        <p>Deze actie kan niet meer ongedaan gemaakt worden.</p>
+
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary" ng-disabled="deleteScoreForm.$invalid"><span class="glyphicon glyphicon-ok"></span> Verwijderen</button>
+            <button type="button" class="btn btn-default" ng-click="$hide()"><span class="glyphicon glyphicon-remove"></span> Annuleren</button>
+        </div>
+    </form>
+</div>

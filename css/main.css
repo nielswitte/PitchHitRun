@@ -1,0 +1,30 @@
+div.container {
+	padding-top: 10px;
+}
+
+div.modal-backdrop {
+	opacity: 0.5;
+}
+
+#alerts-container {
+    position: fixed;
+    z-index: 2000;
+    right: 25px;
+    bottom: 10px;
+    max-width: 400px;
+    min-width: 300px;
+}
+
+#alerts-container .alert-success,
+#alerts-container .alert-info {
+	display: none !important;
+}
+
+#alerts-container .alert-success:last-of-type,
+#alerts-container .alert-info:last-of-type {
+	display: block !important;
+}
+
+div.datepicker .btn-default {
+    border: none !important;
+}

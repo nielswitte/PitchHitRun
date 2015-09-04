@@ -1,0 +1,68 @@
+<form class="form form-horizontal" ng-submit="searchResults(filter)">
+	<div class="row">
+		<div class="col-sm-4">
+			<ui-select ng-model="filter.Section" id="section" required name="section">
+				<ui-select-match placeholder="Kies onderdeel" allow-clear="true">{{$select.selected.Name}}</ui-select-match>
+				<ui-select-choices repeat="section in sections | filter: $select.search | orderBy: 'Name'">
+					<div ng-bind-html="section.Name | highlight: $select.search"></div>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+		<div class="col-sm-4">
+			<ui-select ng-model="filter.Category" id="category" required name="category">
+				<ui-select-match placeholder="Kies categorie" allow-clear="true">{{$select.selected.Name}}</ui-select-match>
+				<ui-select-choices repeat="category in categories | filter: $select.search | orderBy: 'Name'">
+					<div ng-bind-html="category.Name | highlight: $select.search"></div>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+		<div class="col-sm-4">
+			<ui-select ng-model="filter.Gender" id="section" required name="section">
+				<ui-select-match placeholder="Kies geslacht" allow-clear="true">{{$select.selected.Name}}</ui-select-match>
+				<ui-select-choices repeat="gender in genders | filter: $select.search | orderBy: 'Name'">
+					<div ng-bind-html="gender.Name | highlight: $select.search"></div>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 12px;">
+		<div class="col-sm-12 text-right">
+			<button type="submit" class="btn btn-primary" bs-tooltip data-title="Filter de resultaten. Laat alle filters leeg om alles weer te geven">
+				<span class="glyphicon glyphicon-search"></span> Filteren
+			</button>
+		</div>
+	</div>
+</form>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th class="col-sm-1"><sorting field="pos" title="#"></th>
+					<th><sorting field="User.FullName" title="Deelnemer"></th>
+					<th class="col-sm-2"><sorting field="User.Category.Name" title="Categorie"></th>
+					<th class="col-sm-1"><sorting field="User.Gender" title="Geslacht"></th>
+					<th class="col-sm-3"><sorting field="User.Gender" title="Onderdelen"></th>
+					<th class="col-sm-1"><sorting field="TotalScore" title="Totaal"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(pos, result) in results | orderBy: orderByField:reverseSort | filter: scoreFilterText ">
+					<td>{{pos + 1}}</td>
+					<td><span bs-tooltip data-html="true" data-title="Deelnemer: {{result.User.Id}}<br>Geslacht: {{result.User.Gender == 'Male' ? 'M' : 'V'}}<br>Geboren: {{result.User.Birthday | date: 'dd-MM-yyyy'}}">{{result.User.FullName}}</span></td>
+					<td>{{result.User.Category.Name}}</td>
+					<td>{{result.User.Gender == 'Male' ? 'M' : 'V'}}</td>
+					<td>
+						<ul class="list-unstyled">
+							<li ng-repeat="score in result.Scores | orderBy: 'Section.Name'">{{score.Section.Name}} : {{score.Score}}</li>
+						</ul>
+					</td>
+					<td>{{result.TotalScore}}</td>
+				</tr>
+				<tr ng-show="results != null && results.length == 0">
+					<td colspan="6"><span class="glyphicon glyphicon-warning-sign"></span> Geen resultaten</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

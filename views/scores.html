@@ -1,0 +1,47 @@
+<div class="row">
+	<div class="col-sm-8">
+		<button type="button" class="btn btn-primary" ng-click="showAddScoreModal()" bs-tooltip data-title="Nieuwe score toevoegen"><span class="glyphicon glyphicon-plus"></span> Toevoegen</button>
+	</div>
+	<div class="col-sm-4 text-right">
+		<form class="form-horizontal">
+			<div class="form-group">
+            	<label for="search" class="col-sm-2 control-label">Zoeken</label>
+				<div class="col-sm-10">
+            		<input type="text" class="form-control" id="search" name="search" ng-model="scoreFilterText" required ng-minlength="1" ng-maxlength="64" placeholder="Zoektekst">
+				</div>
+        	</div>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th class="col-sm-1"><sorting field="Id" title="Id"></th>
+					<th class="col-sm-2"><sorting field="Section.Name" title="Onderdeel"></th>
+					<th><sorting field="User.FullName" title="Deelnemer"></th>
+					<th class="col-sm-2"><sorting field="User.Category.Name" title="Categorie"></th>
+					<th class="col-sm-1"><sorting field="Score" title="Score"></th>
+					<th class="col-sm-1"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="score in scores | orderBy: orderByField:reverseSort | filter: scoreFilterText">
+					<td>{{score.Id}}</td>
+					<td>{{score.Section.Name}}</td>
+					<td><span bs-tooltip data-html="true" data-title="Deelnemer: {{score.User.Id}}<br>Geslacht: {{score.User.Gender == 'Male' ? 'M' : 'V'}}<br>Geboren: {{score.User.Birthday | date: 'dd-MM-yyyy'}}">{{score.User.FullName}}</span></td>
+					<td>{{score.User.Category.Name}}</td>
+					<td>{{score.Score}}</td>
+					<td class="text-right">
+						<button class="btn btn-xs btn-default" bs-tooltip data-title="Bewerken" ng-click="showEditScoreModal(score)"><span class="glyphicon glyphicon-pencil"></button>
+						<button class="btn btn-xs btn-danger" bs-tooltip data-title="Verwijderen" ng-click="showDeleteScoreModal(score)"><span class="glyphicon glyphicon-remove"></button>
+					</td>
+				</tr>
+				<tr ng-show="scores != null && scores.length == 0">
+					<td colspan="6"><span class="glyphicon glyphicon-warning-sign"></span> Geen resultaten</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,33 @@
+<div ng-controller="ScoreModalsCtrl">
+    <form class="form" name="newScoreForm" ng-submit="newScore(score)">
+        <div class="form-group has-feedback" ng-class="{'has-error': newScoreForm.user.$invalid}">
+            <label for="user" class="control-label">Deelnemer</label>
+            <ui-select ng-model="score.User" id="user" required name="user">
+                <ui-select-match placeholder="Kies deelnemer">{{$select.selected.FullName}}</ui-select-match>
+                <ui-select-choices repeat="user in users | filter: $select.search | orderBy: 'FullName'">
+                    <div ng-bind-html="user.FullName | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <div class="form-group has-feedback" ng-class="{'has-error': newScoreForm.section.$invalid}">
+            <label for="section" class="control-label">Onderdeel</label>
+            <ui-select ng-model="score.Section" id="section" required name="section">
+                <ui-select-match placeholder="Kies onderdeel">{{$select.selected.Name}}</ui-select-match>
+                <ui-select-choices repeat="section in sections | filter: $select.search | orderBy: 'Name'">
+                    <div ng-bind-html="section.Name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+		<div class="form-group has-feedback" ng-class="{'has-error': newScoreForm.score.$invalid}">
+            <label for="score" class="control-label">Score</label>
+            <input type="number" class="form-control" id="score" name="score" ng-model="score.Score" required ng-minlength="1" ng-maxlength="5" placeholder="Score">
+        </div>
+
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary" ng-disabled="newScoreForm.$invalid"><span class="glyphicon glyphicon-ok"></span> Toevoegen</button>
+            <button type="button" class="btn btn-default" ng-click="$hide()"><span class="glyphicon glyphicon-remove"></span> Annuleren</button>
+        </div>
+    </form>
+</div>

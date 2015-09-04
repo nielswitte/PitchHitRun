@@ -1,0 +1,41 @@
+<div class="row">
+	<div class="col-sm-8">
+		<button type="button" class="btn btn-primary" ng-click="showAddSectionModal()" bs-tooltip data-title="Nieuw onderdeel toevoegen"><span class="glyphicon glyphicon-plus"></span> Toevoegen</button>
+	</div>
+	<div class="col-sm-4 text-right">
+		<form class="form-horizontal">
+			<div class="form-group">
+            	<label for="search" class="col-sm-2 control-label">Zoeken</label>
+				<div class="col-sm-10">
+            		<input type="text" class="form-control" id="search" name="search" ng-model="sectionFilterText" required ng-minlength="1" ng-maxlength="64" placeholder="Zoektekst">
+				</div>
+        	</div>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th class="col-sm-1"><sorting field="Id" title="Id"></th>
+					<th><sorting field="Name" title="Onderdeel"></th>
+					<th class="col-sm-1"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="section in sections | orderBy: orderByField:reverseSort | filter: sectionFilterText">
+					<td>{{section.Id}}</td>
+					<td>{{section.Name}}</td>
+					<td class="text-right">
+						<button class="btn btn-xs btn-default" bs-tooltip data-title="Bewerken" ng-click="showEditSectionModal(section)"><span class="glyphicon glyphicon-pencil"></button>
+						<button class="btn btn-xs btn-danger" bs-tooltip data-title="Verwijderen" ng-click="showDeleteSectionModal(section)"><span class="glyphicon glyphicon-remove"></button>
+					</td>
+				</tr>
+				<tr ng-show="sections != null && sections.length == 0">
+					<td colspan="3"><span class="glyphicon glyphicon-warning-sign"></span> Geen resultaten</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

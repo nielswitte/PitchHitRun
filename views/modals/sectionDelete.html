@@ -1,0 +1,11 @@
+<div ng-controller="SectionModalsCtrl">
+    <form class="form" name="deleteSectionForm" ng-submit="deleteSection(section)">
+        <p>Weet u zeker dat u <strong>{{section.Name}}</strong> wilt verwijderen?</p>
+        <p>Deze actie kan niet meer ongedaan gemaakt worden.</p>
+
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary" ng-disabled="deleteSectionForm.$invalid"><span class="glyphicon glyphicon-ok"></span> Verwijderen</button>
+            <button type="button" class="btn btn-default" ng-click="$hide()"><span class="glyphicon glyphicon-remove"></span> Annuleren</button>
+        </div>
+    </form>
+</div>

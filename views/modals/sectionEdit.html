@@ -1,0 +1,14 @@
+<div ng-controller="SectionModalsCtrl">
+    <form class="form" name="editSectionForm" ng-submit="editSection(section)">
+
+		<div class="form-group has-feedback" ng-class="{'has-error': editSectionForm.name.$invalid}">
+            <label for="name" class="control-label">Naam</label>
+            <input type="text" class="form-control" id="name" name="name" ng-model="section.Name" required ng-minlength="1" ng-maxlength="64" placeholder="Categorie">
+        </div>
+
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary" ng-disabled="editSectionForm.$invalid"><span class="glyphicon glyphicon-ok"></span> Bewerken</button>
+            <button type="button" class="btn btn-default" ng-click="$hide()"><span class="glyphicon glyphicon-remove"></span> Annuleren</button>
+        </div>
+    </form>
+</div>

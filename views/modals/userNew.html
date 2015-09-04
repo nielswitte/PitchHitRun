@@ -1,0 +1,42 @@
+<div ng-controller="UserModalsCtrl">
+    <form class="form" name="newUserForm" ng-submit="newUser(user)">
+
+		<div class="form-group has-feedback" ng-class="{'has-error': newUserForm.firstName.$invalid}">
+            <label for="firstName" class="control-label">Voornaam</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" ng-model="user.FirstName" required ng-minlength="1" ng-maxlength="64" placeholder="Voornaam">
+        </div>
+
+        <div class="form-group has-feedback" ng-class="{'has-error': newUserForm.lastName.$invalid}">
+            <label for="lastName" class="control-label">Achternaam</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" ng-model="user.LastName" required ng-minlength="1" ng-maxlength="64" placeholder="Achternaam">
+        </div>
+
+        <div class="form-group has-feedback" ng-class="{'has-error': newUserForm.birthday.$invalid}">
+            <label for="birthday" class="control-label">Verjaardag</label>
+            <input type="text" bs-datepicker class="form-control" id="birthday" name="birthday" ng-model="user.Birthday" required placeholder="dd-mm-yyyy" ng-date-format="dd-MM-yyyy">
+        </div>
+
+        <div class="form-group has-feedback" ng-class="{'has-error': newUserForm.gender.$invalid}">
+            <label for="gender" class="control-label">Geslacht</label>
+            <select class="form-control" id="gender" name="gender" ng-model="user.Gender" required placeholder="Geslacht">
+                <option value="Male">M</option>
+                <option value="Female">V</option>
+            </select>
+        </div>
+
+        <div class="form-group has-feedback" ng-class="{'has-error': newUserForm.category.$invalid}">
+            <label for="category" class="control-label">Categorie</label>
+            <ui-select ng-model="user.Category" id="category" required name="category">
+                <ui-select-match placeholder="Kies categorie">{{$select.selected.Name}}</ui-select-match>
+                <ui-select-choices repeat="category in categories | filter: $select.search">
+                    <div ng-bind-html="category.Name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary" ng-disabled="newUserForm.$invalid"><span class="glyphicon glyphicon-ok"></span> Toevoegen</button>
+            <button type="button" class="btn btn-default" ng-click="$hide()"><span class="glyphicon glyphicon-remove"></span> Annuleren</button>
+        </div>
+    </form>
+</div>
